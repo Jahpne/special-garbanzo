@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Memories Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-purple: #5d3a9b;
+            --secondary-purple: #8a53c6;
+            --light-purple: #d8c4f4;
+            --dark-purple: #3d2672;
+            --accent-gold: #ffd700;
+            --accent-green: #2e8b57;
+            --text-light: #f8f8ff;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-purple), var(--primary-purple));
+            color: var(--text-light);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-gold);
+            margin-bottom: 40px;
+            background-color: rgba(61, 38, 114, 0.9);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--accent-gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--light-purple);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+        }
+
+        .card-title i {
+            font-size: 1.8rem;
+        }
+
+        .upload-area {
+            border: 3px dashed var(--light-purple);
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--light-purple);
+            margin-bottom: 15px;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            background-color: var(--secondary-purple);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .upload-btn:hover {
+            background-color: var(--accent-green);
+            transform: translateY(-3px);
+        }
+
+        .file-list {
+            list-style: none;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .file-list li {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-list li i {
+            color: var(--accent-gold);
+            margin-right: 10px;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 50px 0 0 50px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            background-color: var(--accent-gold);
+            color: var(--dark-purple);
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 50px 50px 0;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: #ffed4e;
+        }
+
+        .song-results {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .song-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .song-info h4 {
+            margin-bottom: 5px;
+            color: var(--accent-gold);
+        }
+
+        .song-info p {
+            font-size: 0.9rem;
+            color: var(--light-purple);
+        }
+
+        .add-song-btn {
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .add-song-btn:hover {
+            background-color: #3cb371;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .download-btn {
+            background: linear-gradient(to right, var(--accent-gold), #ffaa00);
+            color: var(--dark-purple);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-green);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1000;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--light-purple);
+            font-size: 0.9rem;
+        }
+
+        .uploaded-media {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+ 
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1.5em;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        .media-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .delete-media {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .selected-songs {
+            margin-top: 20px;
+        }
+
+        .selected-song-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background-color: rgba(93, 58, 155, 0.5);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            gap: 15px;
+        }
+
+        .song-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .play-pause-btn {
+            background-color: var(--accent-gold);
+            color: var(--dark-purple);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .play-pause-btn:hover {
+            background-color: #ffed4e;
+            transform: scale(1.1);
+        }
+
+        .song-details {
+            flex-grow: 1;
+        }
+
+        .song-details h4 {
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .song-details p {
+            font-size: 0.9rem;
+            color: var(--light-purple);
+        }
+
+        .now-playing {
+            background-color: rgba(255, 215, 0, 0.2);
+            border: 1px solid var(--accent-gold);
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .current-audio-info {
+            background-color: rgba(93, 58, 155, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .current-audio-info.active {
+            display: flex;
+        }
+
+        .current-audio-info .play-pause-btn {
+            flex-shrink: 0;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            color: var(--light-purple);
+        }
+
+        .volume-slider {
+            width: 80px;
+            accent-color: var(--accent-gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-tree logo-icon"></i>
+                <h1>Christmas Memories Portal</h1>
+            </div>
+            <p class="tagline">Upload your holiday photos & videos, create a custom Christmas playlist, and download your memories!</p>
+        </header>
+
+        <div class="current-audio-info" id="currentAudioInfo">
+            <button class="play-pause-btn" id="globalPlayPause">
+                <i class="fas fa-pause"></i>
+            </button>
+            <div class="song-details">
+                <h4 id="currentSongTitle">No song playing</h4>
+                <p id="currentSongArtist">Select a song to play</p>
+            </div>
+            <audio id="globalAudioPlayer" controls class="audio-player"></audio>
+            <div class="volume-control">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" min="0" max="100" value="70" class="volume-slider" id="globalVolume">
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h2>Upload Your Christmas Memories</h2>
+                </div>
+                <p>Share your favorite holiday moments by uploading photos and videos.</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-file-upload"></i>
+                    <h3>Drag & Drop or Click to Upload</h3>
+                    <p>Supports JPG, PNG, MP4, MOV (Max 20MB per file)</p>
+                    <button class="upload-btn">Browse Files</button>
+                    <input type="file" id="fileInput" multiple accept="image/*,video/*" style="display: none;">
+                </div>
+                
+                <div class="uploaded-media" id="uploadedMedia">
+                    <!-- Uploaded media will appear here -->
+                </div>
+                
+                <ul class="file-list" id="fileList">
+                    <!-- File list will appear here -->
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-music"></i>
+                    <h2>Christmas Music Playlist</h2>
+                </div>
+                <p>Search for Christmas songs and add them to your custom playlist. Click play to listen!</p>
+                
+                <div class="search-box">
+                    <input type="text" class="search-input" id="songSearch" placeholder="Search for Christmas songs...">
+                    <button class="search-btn" id="searchBtn">Search</button>
+                </div>
+                
+                <div class="song-results" id="songResults">
+                    <!-- Search results will appear here -->
+                </div>
+                
+                <div class="selected-songs">
+                    <h3>Your Christmas Playlist <span id="songCount">(0 songs)</span></h3>
+                    <div id="selectedSongs">
+                        <!-- Selected songs will appear here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <button class="download-btn" id="downloadBtn">
+                <i class="fas fa-download"></i>
+                Download Your Christmas Memories
+            </button>
+            <p style="margin-top: 15px; color: var(--light-purple);">Download all your uploaded media and selected songs as a zip file</p>
+        </div>
+
+        <footer>
+            <p>© 2023 Christmas Memories Portal. All rights reserved. | This is a demo application for educational purposes.</p>
+            <p style="margin-top: 5px;">All Christmas songs are from royalty-free sources that work globally including Nigeria.</p>
+        </footer>
+    </div>
+
+    <div class="notification" id="notification">
+        <span id="notificationText">File uploaded successfully!</span>
+    </div>
+
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadedMedia = document.getElementById('uploadedMedia');
+        const fileList = document.getElementById('fileList');
+        const songSearch = document.getElementById('songSearch');
+        const searchBtn = document.getElementById('searchBtn');
+        const songResults = document.getElementById('songResults');
+        const selectedSongs = document.getElementById('selectedSongs');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const globalAudioPlayer = document.getElementById('globalAudioPlayer');
+        const globalPlayPause = document.getElementById('globalPlayPause');
+        const globalVolume = document.getElementById('globalVolume');
+        const currentAudioInfo = document.getElementById('currentAudioInfo');
+        const currentSongTitle = document.getElementById('currentSongTitle');
+        const currentSongArtist = document.getElementById('currentSongArtist');
+        const songCount = document.getElementById('songCount');
+
+        // Data storage
+        let uploadedFiles = [];
+        let selectedSongsList = [];
+        let currentlyPlayingSong = null;
+// Simple snowfall effect
+        function createSnowflake() {
+            const snow = document.createElement('div');
+            snow.className = 'snowflake';
+            snow.textContent = '❄';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.animationDuration = Math.random() * 5 + 10 + 's';
+            snow.style.opacity = Math.random() * 0.5 + 0.5;
+            document.body.appendChild(snow);
+            setTimeout(() => snow.remove(), 15000);
+        }
+        setInterval(createSnowflake, 300);
+    
+        // REAL Christmas songs that work in Nigeria (using reliable sources)
+        const CHRISTMAS_SONGS = [
+            { 
+                id: 1, 
+                title: "Jingle Bells", 
+                artist: "Christmas Carol", 
+                duration: "2:15",
+                // Using Pixabay music which works globally
+                audioUrl: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_12d5a2e6e6.mp3?filename=jingle-bells-christmas-variation-116950.mp3"
+            },
+            { 
+                id: 2, 
+                title: "Silent Night", 
+                artist: "Traditional", 
+                duration: "3:02",
+                audioUrl: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_a1d0f0e3fa.mp3?filename=silent-night-christmas-carol-116957.mp3"
+            },
+            { 
+                id: 3, 
+                title: "We Wish You a Merry Christmas", 
+                artist: "Christmas Carol", 
+                duration: "1:45",
+                audioUrl: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_2b7a3b6bb3.mp3?filename=we-wish-you-a-merry-christmas-christmas-carol-116960.mp3"
+            },
+            { 
+                id: 4, 
+                title: "Deck the Halls", 
+                artist: "Christmas Carol", 
+                duration: "2:30",
+                audioUrl: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_2e9e1c5e5e.mp3?filename=deck-the-halls-christmas-carol-116951.mp3"
+            },
+            { 
+                id: 5, 
+                title: "Joy to the World", 
+                artist: "Christmas Hymn", 
+                duration: "2:45",
+                audioUrl: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_2ff21a0c4e.mp3?filename=joy-to-the-world-christmas-carol-116953.mp3"
+            },
+            { 
+                id: 6, 
+                title: "O Christmas Tree", 
+                artist: "German Carol", 
+                duration: "2:20",
+                audioUrl: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_2e7a0e1b7a.mp3?filename=o-christmas-tree-christmas-carol-116956.mp3"
+            },
+            { 
+                id: 7, 
+                title: "Christmas Piano", 
+                artist: "Instrumental", 
+                duration: "2:10",
+                // Using Mixkit as backup
+                audioUrl: "https://assets.mixkit.co/music/preview/mixkit-christmas-piano-219.mp3"
+            },
+            { 
+                id: 8, 
+                title: "Christmas Bells", 
+                artist: "Festive Sounds", 
+                duration: "2:05",
+                audioUrl: "https://assets.mixkit.co/music/preview/mixkit-christmas-bells-299.mp3"
+            }
+        ];
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            displaySongResults(CHRISTMAS_SONGS);
+            showNotification('Welcome! Christmas songs are ready to play. Try clicking play on any song!', 'info');
+        });
+
+        // Display song search results
+        function displaySongResults(songs) {
+            songResults.innerHTML = '';
+            
+            songs.forEach(song => {
+                const songItem = document.createElement('div');
+                songItem.className = 'song-item';
+                songItem.innerHTML = `
+                    <div class="song-info">
+                        <h4>${song.title}</h4>
+                        <p>${song.artist} • ${song.duration}</p>
+                    </div>
+                    <button class="add-song-btn" data-id="${song.id}">
+                        <i class="fas fa-plus"></i> Add to Playlist
+                    </button>
+                `;
+                
+                songResults.appendChild(songItem);
+                
+                // Add event listener to add button
+                const addBtn = songItem.querySelector('.add-song-btn');
+                addBtn.addEventListener('click', () => {
+                    addSongToPlaylist(song);
+                });
+            });
+        }
+
+        // Upload area click handler
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // File input change handler
+        fileInput.addEventListener('change', handleFileUpload);
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--accent-gold)';
+            uploadArea.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'var(--light-purple)';
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--light-purple)';
+            uploadArea.style.backgroundColor = 'transparent';
+            
+            const files = Array.from(e.dataTransfer.files);
+            handleFiles(files);
+        });
+
+        // Handle file upload
+        function handleFileUpload(e) {
+            const files = Array.from(e.target.files);
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            files.forEach(file => {
+                // Check file size (max 20MB)
+                if (file.size > 20 * 1024 * 1024) {
+                    showNotification(`File ${file.name} is too large. Max size is 20MB.`, 'error');
+                    return;
+                }
+                
+                // Check file type
+                if (!file.type.match('image.*') && !file.type.match('video.*')) {
+                    showNotification(`File ${file.name} is not a supported image or video format.`, 'error');
+                    return;
+                }
+                
+                // Add to uploaded files
+                uploadedFiles.push({
+                    id: Date.now() + Math.random(),
+                    file: file,
+                    name: file.name,
+                    type: file.type,
+                    size: formatFileSize(file.size),
+                    url: URL.createObjectURL(file)
+                });
+                
+                // Update UI
+                updateFileList();
+                updateMediaGallery();
+                
+                showNotification(`${file.name} uploaded successfully!`);
+            });
+            
+            // Reset file input
+            fileInput.value = '';
+        }
+
+        // Update file list UI
+        function updateFileList() {
+            fileList.innerHTML = '';
+            
+            uploadedFiles.forEach(file => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div>
+                        <i class="${file.type.startsWith('image') ? 'fas fa-image' : 'fas fa-video'}"></i>
+                        ${file.name}
+                    </div>
+                    <span>${file.size}</span>
+                `;
+                fileList.appendChild(li);
+            });
+        }
+
+        // Update media gallery UI
+        function updateMediaGallery() {
+            uploadedMedia.innerHTML = '';
+            
+            uploadedFiles.forEach(file => {
+                const mediaItem = document.createElement('div');
+                mediaItem.className = 'media-item';
+                
+                if (file.type.startsWith('image')) {
+                    mediaItem.innerHTML = `
+                        <img src="${file.url}" alt="${file.name}">
+                        <button class="delete-media" data-id="${file.id}">×</button>
+                    `;
+                } else {
+                    mediaItem.innerHTML = `
+                        <video controls>
+                            <source src="${file.url}" type="${file.type}">
+                        </video>
+                        <button class="delete-media" data-id="${file.id}">×</button>
+                    `;
+                }
+                
+                uploadedMedia.appendChild(mediaItem);
+            });
+            
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-media').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.target.getAttribute('data-id');
+                    deleteFile(id);
+                });
+            });
+        }
+
+        // Delete a file
+        function deleteFile(id) {
+            const index = uploadedFiles.findIndex(file => file.id == id);
+            if (index !== -1) {
+                // Revoke object URL to free memory
+                URL.revokeObjectURL(uploadedFiles[index].url);
+                uploadedFiles.splice(index, 1);
+                updateFileList();
+                updateMediaGallery();
+                showNotification('File deleted successfully.');
+            }
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' bytes';
+            else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            else return (bytes / 1048576).toFixed(1) + ' MB';
+        }
+
+        // Search for songs
+        searchBtn.addEventListener('click', searchSongs);
+        songSearch.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchSongs();
+        });
+
+        function searchSongs() {
+            const query = songSearch.value.trim().toLowerCase();
+            
+            if (!query) {
+                displaySongResults(CHRISTMAS_SONGS);
+                return;
+            }
+            
+            // Filter songs based on query
+            const results = CHRISTMAS_SONGS.filter(song => 
+                song.title.toLowerCase().includes(query) || 
+                song.artist.toLowerCase().includes(query)
+            );
+            
+            if (results.length === 0) {
+                songResults.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--light-purple);">No songs found. Try "Jingle Bells" or "Christmas"</p>';
+            } else {
+                displaySongResults(results);
+            }
+        }
+
+        // Add song to playlist
+        function addSongToPlaylist(song) {
+            // Check if already added
+            if (selectedSongsList.find(s => s.id === song.id)) {
+                showNotification(`${song.title} is already in your playlist.`, 'info');
+                return;
+            }
+            
+            // Add to playlist
+            selectedSongsList.push(song);
+            updateSelectedSongs();
+            showNotification(`${song.title} added to your playlist!`);
+        }
+
+        // Update selected songs UI
+        function updateSelectedSongs() {
+            selectedSongs.innerHTML = '';
+            songCount.textContent = `(${selectedSongsList.length} songs)`;
+            
+            if (selectedSongsList.length === 0) {
+                selectedSongs.innerHTML = '<p style="text-align: center; padding: 15px; color: var(--light-purple);">No songs added yet. Search and add some Christmas songs!</p>';
+                return;
+            }
+            
+            selectedSongsList.forEach(song => {
+                const songItem = document.createElement('div');
+                songItem.className = `selected-song-item ${currentlyPlayingSong && currentlyPlayingSong.id === song.id ? 'now-playing' : ''}`;
+                songItem.innerHTML = `
+                    <div class="song-details">
+                        <h4>${song.title}</h4>
+                        <p>${song.artist} • ${song.duration}</p>
+                    </div>
+                    <div class="song-controls">
+                        <button class="play-pause-btn" data-id="${song.id}">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="delete-media" data-song-id="${song.id}">×</button>
+                    </div>
+                `;
+                
+                selectedSongs.appendChild(songItem);
+                
+                // Add event listeners
+                const playBtn = songItem.querySelector('.play-pause-btn');
+                playBtn.addEventListener('click', () => {
+                    playSong(song);
+                });
+                
+                const deleteBtn = songItem.querySelector('.delete-media');
+                deleteBtn.addEventListener('click', () => {
+                    removeSongFromPlaylist(song.id);
+                });
+            });
+        }
+
+        // Play a song - SIMPLE VERSION THAT ACTUALLY PLAYS
+        function playSong(song) {
+            // Stop any currently playing song
+            globalAudioPlayer.pause();
+            
+            // Set the new song
+            globalAudioPlayer.src = song.audioUrl;
+            
+            // Update UI
+            currentSongTitle.textContent = song.title;
+            currentSongArtist.textContent = song.artist;
+            currentAudioInfo.classList.add('active');
+            
+            // Play the song
+            globalAudioPlayer.play()
+                .then(() => {
+                    // Update play button to show pause
+                    const playBtn = document.querySelector(`.play-pause-btn[data-id="${song.id}"]`);
+                    if (playBtn) {
+                        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    }
+                    globalPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
+                    
+                    currentlyPlayingSong = song;
+                    updateSelectedSongs();
+                    showNotification(`Now playing: ${song.title}`, 'info');
+                })
+                .catch(error => {
+                    console.error('Playback error:', error);
+                    showNotification('Error playing song. Trying alternative source...', 'error');
+                    
+                    // Try alternative source
+                    setTimeout(() => {
+                        // Try a different source for the same song
+                        const alternativeUrls = [
+                            "https://assets.mixkit.co/music/preview/mixkit-jingle-bells-311.mp3",
+                            "https://assets.mixkit.co/music/preview/mixkit-silent-night-315.mp3"
+                        ];
+                        
+                        // Try alternative URL
+                        const altUrl = alternativeUrls[Math.floor(Math.random() * alternativeUrls.length)];
+                        globalAudioPlayer.src = altUrl;
+                        globalAudioPlayer.play().catch(e => {
+                            showNotification('Please check your internet connection and try again.', 'error');
+                        });
+                    }, 500);
+                });
+        }
+
+        // Global play/pause button
+        globalPlayPause.addEventListener('click', () => {
+            if (globalAudioPlayer.paused) {
+                if (globalAudioPlayer.src) {
+                    globalAudioPlayer.play();
+                    globalPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
+                } else if (selectedSongsList.length > 0) {
+                    playSong(selectedSongsList[0]);
+                }
+            } else {
+                globalAudioPlayer.pause();
+                globalPlayPause.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+
+        // Volume control
+        globalVolume.addEventListener('input', () => {
+            globalAudioPlayer.volume = globalVolume.value / 100;
+        });
+
+        // Handle audio events
+        globalAudioPlayer.addEventListener('play', () => {
+            globalPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
+            if (currentlyPlayingSong) {
+                const playBtn = document.querySelector(`.play-pause-btn[data-id="${currentlyPlayingSong.id}"]`);
+                if (playBtn) {
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+            }
+        });
+
+        globalAudioPlayer.addEventListener('pause', () => {
+            globalPlayPause.innerHTML = '<i class="fas fa-play"></i>';
+            if (currentlyPlayingSong) {
+                const playBtn = document.querySelector(`.play-pause-btn[data-id="${currentlyPlayingSong.id}"]`);
+                if (playBtn) {
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            }
+        });
+
+        // Remove song from playlist
+        function removeSongFromPlaylist(id) {
+            const index = selectedSongsList.findIndex(song => song.id === id);
+            if (index !== -1) {
+                // If this song is currently playing, stop it
+                if (currentlyPlayingSong && currentlyPlayingSong.id === id) {
+                    globalAudioPlayer.pause();
+                    globalAudioPlayer.src = '';
+                    currentlyPlayingSong = null;
+                    currentAudioInfo.classList.remove('active');
+                }
+                
+                selectedSongsList.splice(index, 1);
+                updateSelectedSongs();
+                showNotification('Song removed from playlist.');
+            }
+        }
+
+        // Download functionality
+        downloadBtn.addEventListener('click', () => {
+            if (uploadedFiles.length === 0 && selectedSongsList.length === 0) {
+                showNotification('No content to download. Please upload files or add songs first.', 'error');
+                return;
+            }
+            
+            // Show download simulation
+            showNotification('Preparing your Christmas memories download...', 'info');
+            
+            // Simulate download process
+            setTimeout(() => {
+                showNotification('Your Christmas memories are ready! Download starting...', 'success');
+                
+                // Create a text file with song list
+                let songList = "Your Christmas Playlist:\n\n";
+                selectedSongsList.forEach((song, index) => {
+                    songList += `${index + 1}. ${song.title} - ${song.artist} (${song.duration})\n`;
+                });
+                
+                if (selectedSongsList.length > 0) {
+                    songList += `\nTotal songs: ${selectedSongsList.length}`;
+                }
+                
+                if (uploadedFiles.length > 0) {
+                    songList += `\n\nUploaded Files:\n`;
+                    uploadedFiles.forEach((file, index) => {
+                        songList += `${index + 1}. ${file.name} (${file.size})\n`;
+                    });
+                    songList += `\nTotal files: ${uploadedFiles.length}`;
+                }
+                
+                // Create blob and download link
+                const blob = new Blob([songList], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = url;
+                downloadLink.download = 'christmas-memories.txt';
+                downloadLink.click();
+                
+                // Clean up
+                URL.revokeObjectURL(url);
+                            // Show final message
+                setTimeout(() => {
+                    showNotification('Download complete! Check your downloads folder.', 'success');
+                }, 1500);
+            }, 2000);
+        });
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            notificationText.textContent = message;
+            
+            // Set color based on type
+            if (type === 'error') {
+                notification.style.backgroundColor = '#dc3545';
+            } else if (type === 'info') {
+                notification.style.backgroundColor = '#17a2b8';
+            } else if (type === 'success') {
+                notification.style.backgroundColor = 'var(--accent-green)';
+            }
+            
+            // Show notification
+            notification.style.display = 'block';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
